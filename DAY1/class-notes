@@ -1,0 +1,259 @@
+
+In C 
+------
+	int j ; 
+	j = 15;
+	int i = 10; // i is a variable - holding value 10 belongs to int type
+	|   |   ----value
+	|  variable
+	datatype
+	
+	i = "Hello"; //Error
+	i = 10.0 ; //warining /Error
+    -------------------------------------
+	<dataType> Variable = Value;
+	----------
+
+In Python
+-----------
+		Variable = Value <== initialization
+				
+	i = 10
+	i = "Hello"
+	i = "C:\\emp.csv"
+	i = "10.20.30.40"
+	print(i) -> 10.20.30.40
+
+---------------------------------------------------------------------
+Python everything is class <--> object //design 
+		     ------ -----------
+
+10 <--- belongs to int class
+
+type --- class
+----     ------
+
+int i = 10;   -> i  | 10 | 0x1000
+int j = 10;   -> j  | 10 | 0x1004
+int k = 10;   -> k  | 10 | 0x1008
+------------------------------------Vs
+
+i = 10                    ( 10 ) - 0x123
+j = 10			  ( 11 ) - 0x344
+k = 10		
+-----------------------------------------------------------------------
+1.Procedure style - Direct call/approach  
+  -----------------
+	|->Core syntax ->Logical Skills 
+	|->Block style of code
+
+2. Object oriented style - class-object design 
+  ------------------------
+	|->Block style of code
+        |->object based approach/initialization/call
+
+3. Functional style <or> Expression style code
+   --------------------------------------------
+       |->Single line code
+       |->Computation/calculation - ML + DA + DE pipeline //Usecases 
+-------------------------------------------------------------------------
+
+   https://labs.dmrtechcloud.com/
+  ==================================
+  Ramesh - VMinstance - 9886980994
+  ===================================
+
+C:\>python {Enter}
+
+>>>
+----//this is python primary prompt
+
+>>> import os
+
+>>> import flask
+ModuleNotFound 
+
+>>> exit()
+
+C:\> pip install flask # global space - env 
+
+2.34 version - OK
+-------------------------------------//Vs
+
+C:\>python -m venv <env-Name>  # Create Virtual Env
+		    =========
+C:\> <env-Name>\scripts\activate  # Activate Env
+
+
+
+
+https://github.com/Palanikarthikeyan/Python_AIassist_Oct26/
+------------------=========================================
+
+python native type/class
+---------------------------
+int float complex bool NoneType 
+str bytes list tuple dict set
+=================================
+
+int float
+complex 
+
+int
+-1 
+0
+134456777653
+0.0 - float
+-3.55
+
+step-1: Understand the topic definition (what is ______?)
+|
+step-2: Understand the topic syntax (Rules)
+|
+step-3: Refer some existing examples 
+|
+step-4: Exercise 
+----------------------------------------------------------
+How to determine python type/class?
+  type() 
+ type(namedVariable) <or> type(Value)
+---------------------------------------------------------------
+
+'''
+this is
+multiline 
+comments
+'''
+-------------------Vs
+var = '''this is 
+         multiline 
+         string'''
+------------------------Vs
+print('data1\ndata2\ndata3')
+Vs
+print('''data1
+data2
+data3''')
+----------------//multiline string
+
+###############################################################################
+Python Operators
+-----------------
+int,float =>  Arithmetic operators (input types are: int/float -> int/float)
+		+ - * / // % **
+
+str => string operators(input types are: int,str -> str)
+	 + *
+
+relational operators => input types are: int,float,str ->bool
+== != < <= > >=
+-----
+Logical Operators  => input types are: int,float,str ->bool
+------------------
+and
+or
+not
+-----//keywords 
+Single Conditional statement,test more than one condition//use logical operators
+-----------------------------------------------------
+membership operators (input types:str,bytes,list,tuple,dict,set ->bool)
+--------------------- =========================================
+in
+not in
+
+'input_pattern_string' in inputCollection
+---------------------------------------------------------------------------
+
+In Programming any expression ->bool //use conditional statement 
+                      <or>
+               any function() ->bool
+	       any method() --->bool
+if statement
+-------------
+ |-> i. if only  |-> ii. if else  |->iii. if elif elif elif...else 
+
+if(condition):
+    |.....
+    |.....
+
+if(condition):
+    |True block
+else:
+    |False block
+
+if(condition1):<--
+    |True block-1
+elif(condition2):
+    |True block-2
+..
+else:
+    |....
+=================================================================
+conditional statement - code block execute only one time
+Vs
+looping statement - code block execute more than one time
+-----------------
+ |-> 1. Conditional style loop 
+	========================
+	- while keyword
+	  ----------------
+	  Rule1: initialization i = 1   j = 5
+	  Rule2: condition      i < 5   j > 0 <== condition-limit
+	  Rule3: arithmetic     i = i+1  j = j-1 
+	
+	initialization <== Rule-1
+	while(condition): <== Rule-2
+	    True block
+	    arithmetic Operation <== Rule-3
+
+ |-> 2. Collection style loop
+	=======================
+	- for keyword
+
+
+break,continue - looping keywords
+---------------------------------
+break - exit from loop
+continue - won't exit from loop
+======================================================
+exit()  Vs break 
+------     =====
+
+
+ |-> 2. Collection style loop
+	=======================
+	- for keyword
+
+for variable in <inputCollection>:
+	....	-----------------
+	....
+
+for in - keywords
+
+str - Collection of chars
+    - '' <or> ""
+    - index based [int]
+    - supports slicing - range of / group of chars
+    - immutable 
+    - len(inputString) ->int
+
+string methods
+       ========
+object.functionName()
+--------------------//methodCall
+	
+s="hello"
+s.upper() ->HELLO 
+
+help(str)
+
+help(str.upper)
+help(str.title)
+help(str.isdigit)
+
+s.strip()
+--
+|-->type(s) => <class 'str'>
+			|
+		  help(str.strip)
+
