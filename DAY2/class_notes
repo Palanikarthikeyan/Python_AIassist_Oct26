@@ -1,0 +1,724 @@
+Recap
+------
+int float str bool NoneType 
+
+bytes <-- python 3.x
+=====
+
+string => Collection of chars 
+       =>  '' <or> ""
+       => index based 
+       => immutable
+file content
+web page
+pattern search
+...
+-------------------//str
+
+bytes -> Collection of ASCII 
+      -> b''
+      => index based 
+      => immutable
+
+encode and decode 
+-----------------------------
+       => index based 
+       => immutable
+
+>>> s = 'abc'
+>>>
+>>> s[0]
+'a'
+>>> v = b'abc'
+>>>
+>>> type(v)
+<class 'bytes'>
+>>>
+>>> v[0]
+97
+>>> msg="This is test message"
+>>> r = msg.encode()
+>>> type(r)
+<class 'bytes'>
+>>> r[0]
+84
+>>> r.decode()
+'This is test message'
+>>>
+==================================================================================================
+
+List 
+-----
+ -> Collection of objects/values(different types)
+ |
+ -> index based 
+ -> slicing 
+ -> mutable - we can add new data / modify an existing data/ delete nth data
+ |
+ -> []
+ 
+pname = 'pA'
+pcost = 1455.32
+pid = 101
+pstatus = True
+
+product_details = ['pA',1455.32,101,True]
+---------------    ====|=======|===|====
+		    0  |   1   | 2 |  3  <== index
+		    -4 | -3    | -2| -1  <== index
+
+How to get/fetch nth index value
+
+ListName[index] ->Value / IndexError
+
+product_details[0] ->'pA'
+product_details[3] -> True
+product_details[-2:]  --------> [101,True]
+
+To modify an existing nth value
+================================
+ListName[OldIndex] = Updated_Value <====  Vs  string_name[OldIndex] = UpdatedString <-- Error  
+
+len(input_List) ->int
+
+How to add new data
+====================
+ListName.append(Value) ->None
+Vs
+ListName.insert(index,Value) ->None 
+
+
+>>> s = 'abc'
+>>>
+>>> s[0]
+'a'
+>>>
+>>> s='abc\n'
+>>> s.strip()
+'abc'
+>>> s
+'abc\n'
+>>>
+>>> s.upper()
+'ABC\n'
+>>> s
+'abc\n'
+>>> L=[]
+>>> len(L)
+0
+>>> L.append('D1')
+>>>
+>>> L
+['D1']
+>>>
+>>> L=['D1','D2','D3']
+>>>
+>>> L[5]
+Traceback (most recent call last):
+  File "<python-input-32>", line 1, in <module>
+    L[5]
+    ~^^^
+IndexError: list index out of range
+>>>
+>>> L.insert(5,'Data-4') # like append()
+>>> L
+['D1', 'D2', 'D3', 'Data-4']
+>>> L[3]
+'Data-4'
+>>>
+>>> i = 45
+>>> print(i)
+45
+>>> del(i)
+>>> print(i)
+Traceback (most recent call last):
+  File "<python-input-41>", line 1, in <module>
+    print(i)
+          ^
+NameError: name 'i' is not defined. Did you mean: 'id'?
+>>>
+>>>
+>>> L
+['D1', 'D2', 'D3', 'Data-4']
+>>>
+>>> del(L[0])
+>>>
+>>> L
+['D2', 'D3', 'Data-4']
+>>>
+>>> # ListName.pop(index) ->removed_value
+>>> # ListName.pop() # default index is -1
+>>>
+>>> L=[10,20,30,40,'D1','D2',True,False,10.33]
+>>> len(L)
+9
+>>> L.pop(5)
+'D2'
+>>> L.pop()
+10.33
+>>> L
+[10, 20, 30, 40, 'D1', True, False]
+>>> for var in L:
+...     print(var)
+...
+10
+20
+30
+40
+D1
+True
+False
+>>> for var in L:
+...     print(var,end=" ")
+...
+>>>
+>>> for var in L:
+...     print(var,end=" ")
+...
+>>> 0 30 40 D1 True False
+>>>
+>>> L
+[10, 20, 30, 40, 'D1', True, False]
+>>>
+>>> 'D1' in L
+True
+>>> 10 in L
+True
+>>> L.index(40)
+3
+>>> L[3]
+40
+>>> s='abcaaa'
+>>> s.index('a')
+0
+>>> s.index('a')
+0
+>>> s[3]
+'a'
+>>> s[4]
+'a'
+>>> s[0]
+'a'
+>>> L.append(40)
+>>> L.append(40)
+>>> L
+[10, 20, 30, 40, 'D1', True, False, 40, 40]
+>>>
+>>> L.index(40)
+3
+>>> L.count(40)
+3
+>>> L.count('D1')
+1
+>>> L
+[10, 20, 30, 40, 'D1', True, False, 40, 40]
+>>>
+>>>
+>>> L.index('D2')
+Traceback (most recent call last):
+  File "<python-input-86>", line 1, in <module>
+    L.index('D2')
+    ~~~~~~~^^^^^^
+ValueError: list.index(x): x not in list
+>>>
+-----------------------------------------------------------------------------------
+Python supports multiple initialization
+
+variable = value
+
+variable1,variable2,variabl3,...variableN = value1,value2,value3,....valueN
+|______________________________________________|
+
+ename,eid,edept = 'Mr.AB',123,'sales'
+
+print(ename) -> Mr.AB
+print(eid)   -> 123
+print(edept) -> sales
+
+v1,v2 = 10,20 # OK
+
+v1,v2 = 10,20,30 # Error
+
+v1,v2,v3 = 10,20 # Error
+
+products=['pA',101,1000.34,True]
+
+pname = products[0]
+pid = products[1]
+pcost = products[2]
+pstatus = product[3]
+--------------------------------Vs
+
+pName,pID,pCost,pStatus = products # OK
+-----------------------  ==========
+
+##########################################################################
+
+Single data to multiple values
+-----------    ================
+str                list
+
+split() //string method
+
+input_string.split(sep) ->output_list
+		   ---
+
+>>> s='101,raj,sales,pune,1000'
+>>> type(s)
+<class 'str'>
+>>> len(s)
+23
+>>>
+>>> s.split(",")
+['101', 'raj', 'sales', 'pune', '1000']
+>>>
+>>> s.split(":")
+['101,raj,sales,pune,1000']
+>>>
+>>> eid,ename,edept,eplace,ecost = s.split(",")
+>>> eid
+'101'
+>>> ename
+'raj'
+>>> edept
+'sales'
+>>> eplace
+'pune'
+>>> ecost
+'1000'
+>>> L=['101','raj','sales','pune','1000']
+>>>
+>>> "".join(L)
+'101rajsalespune1000'
+>>>
+>>> ",".join(L)
+'101,raj,sales,pune,1000'
+>>>
+>>>
+=================================================================================
+
+list - Collection of items , index based , mutable - []
+|
+tuple - Collection of items, index based, immutable - ()
+
+# fixed record set 
+# -------------------
+# database ->select *from Table 
+			   |-----> row1 -> ( )
+			   |-----> row2 -> ( )
+
+# in functionCall - argument type as tuple 
+#                                    ------//keep list of args in fixed order
+#
+
+>>> T=(10,20,30,'D1','D2')
+>>> type(T)
+<class 'tuple'>
+>>> len(T)
+5
+>>> 'D1' in T
+True
+>>> T[-2:]
+('D1', 'D2')
+>>>
+>>> for var in T:
+...     print(var,end="")
+...
+>>> 30D1D2
+>>> for var in T:
+...     print(var,sep="")
+...
+10
+20
+30
+D1
+D2
+>>> for var in T:
+>>> # import <module>
+>>> # <module>.fx() ->("/etc/f1","/etc/f2","/etc/f3")
+>>>
+>>> # v = <module>.fx()
+>>> # --//tuple
+>>>
+>>> v=("/etc/f1","/etc/f2","/etc/f3")
+>>> #
+>>> type(v)
+<class 'tuple'>
+>>>
+>>> list(v)
+['/etc/f1', '/etc/f2', '/etc/f3']
+>>> tv = list(v)
+>>> tv[1] = "/etc/f2.conf"
+>>> tv.append("C:\\winProfile")
+>>> tv
+['/etc/f1', '/etc/f2.conf', '/etc/f3', 'C:\\winProfile']
+>>> tuple(tv)
+('/etc/f1', '/etc/f2.conf', '/etc/f3', 'C:\\winProfile')
+>>>
+>>> v=tuple(tv)
+>>> v
+('/etc/f1', '/etc/f2.conf', '/etc/f3', 'C:\\winProfile')
+>>>
+=====================================================================================================
+>>> 10
+10
+>>> (10)
+10
+>>> 10,
+(10,)
+>>>
+>>> type((10,))
+<class 'tuple'>
+>>>
+>>> type((10))
+<class 'int'>
+>>>
+>>> v = 10,20,30,40
+>>> type(v)
+<class 'tuple'>
+>>>
+>>> v
+(10, 20, 30, 40)
+>>>
+=====================================================================================================
+>>> s1=['RHL5','RHL6','RHL7']
+>>>
+>>> s2=['DEB1','DEB14']
+>>>
+>>> servers=[s1,s2] # list of another list ->list of li\st
+>>> servers
+[['RHL5', 'RHL6', 'RHL7'], ['DEB1', 'DEB14']]
+>>>
+>>> len(servers)
+2
+>>> servers[0]
+['RHL5', 'RHL6', 'RHL7']
+>>> servers[1]
+['DEB1', 'DEB14']
+>>>
+>>> servers[0][0]
+'RHL5'
+>>> servers[0][1]
+'RHL6'
+>>> servers[0][1]="oracle 6.3 server" # modification
+>>> servers
+[['RHL5', 'oracle 6.3 server', 'RHL7'], ['DEB1', 'DEB14']]
+>>> servers.append('Unix') # 1D
+>>>
+>>> servers.append(['winx10','winx11','winx12']) # MD
+>>>
+>>> servers
+[['RHL5', 'oracle 6.3 server', 'RHL7'], ['DEB1', 'DEB14'], 'Unix', ['winx10', 'winx11', 'winx12']]
+>>>
+
+
+
+
+
+L=[[],[],[]] - list of list
+
+L=[(),(),()] - list of tuple
+
+tuple of list  ---> T=([],[],[])
+tuple of tuple ------------------------> T = ((),(),())
+==================// 
+>>> T=([],[])
+>>> len(T)
+2
+>>> type(T)
+<class 'tuple'>
+>>> type(T[0])
+<class 'list'>
+>>>
+>>> T[0].append('D1')
+>>> T[0].append('D2')
+>>> T[0].append('D3')
+>>> T[0].append('D4')
+>>>
+>>> len(T)
+2
+>>> T
+(['D1', 'D2', 'D3', 'D4'], [])
+>>> T[0][1]
+'D2'
+>>> T[0][1]='Data-2'
+>>> T
+(['D1', 'Data-2', 'D3', 'D4'], [])
+>>>
+=======================================================================================
+
+str - collection of chars - index based - ''    - immutable
+bytes - collection of ASCII - index based - b'' - immutable
+list -  collection of items - index based - []  - mutable  <==== 
+tuple -  collection of items - index based - () - immutable
+
+ variable_name[index] ->Value /IndexError 
+
+dict - collection of items - key:value // based - {} - mutable <===
+			    --------------
+
+L=[10,20.4,'data',True]  
+T=(10,20.4,'data',True)
+-------------------------// Data - Single
+
+d={'K1':10,'K2':20.4,'K3':True}
+ ---------------------------------//Data - Key:Value 
+
+python - immutable types are dict keys 
+
+	+-------------------------------+
+	|	Key      |     Value    |
+	+----------------|--------------+
+	|    K1		 |     10	|
+	+----------------|--------------+
+	|    K2          |     20.4     |
+	+-------------------------------+
+	|    K3          |     True     |
+	+-------------------------------+
+
+L=[10,20.4,'data',True]  => | 10 | 20.4 | 'data' | True |
+			    +---------------------------+
+os env 
+meta data
+web header 
+web app - html form 
+webscraping 
+json object
+configuration 
+...
+variable_name[Number]
+-------------------------//index based access 
+
+>>> d
+{'K1': '/etc/f1', 'K2': 1.45, 'K3': 'data', 'K4': True, 'K5': 4.56}
+>>> d['K5'] = '/var/log/repo.log'
+>>> for var in d:
+...     print(var)
+...
+K1
+K2
+K4
+K5
+>>> d['K1']
+'/etc/f1'
+>>> for var in d:
+...     print(d[var])
+...
+/etc/f1
+1.45
+True
+/var/log/repo.log
+>>> for var in d:
+...     print(f'{var} - {d[var]}')
+...
+K1 - /etc/f1
+K2 - 1.45
+K4 - True
+K5 - /var/log/repo.log
+>>>
+=======================================
+
+>>> # How to get/fetch nth data from dict
+>>> #
+>>> # dictname['Key'] ->Value / KeyError
+>>>
+>>> d['K1']
+10
+>>> d['k1']
+Traceback (most recent call last):
+  File "<python-input-220>", line 1, in <module>
+    d['k1']
+    ~^^^^^^
+KeyError: 'k1'
+>>> # How to modify an existing item
+>>> # dictname['oldKey'] = updatedValue
+>>> #  ---------------
+>>> d['K1'] = '/etc/f1'
+>>> d
+{'K1': '/etc/f1', 'K2': 1.45, 'K3': 'data', 'K4': True}
+>>>
+>>> # How to add new data to an exiting dict
+>>> #        ---------------
+>>> # dictname['newKey'] = Value
+>>>
+>>> d['K5'] = 4.56
+>>> d
+{'K1': '/etc/f1', 'K2': 1.45, 'K3': 'data', 'K4': True, 'K5': 4.56}
+>>> d['K5'] = '/var/log/repo.log'
+>>> for var in d:
+...     print(var)
+...
+>>> d
+{'K1': '/etc/f1', 'K2': 1.45, 'K4': True, 'K5': '/var/log/repo.log'}
+>>>
+>>> d['K1']
+'/etc/f1'
+>>> d['k1']
+Traceback (most recent call last):
+  File "<python-input-251>", line 1, in <module>
+    d['k1']
+    ~^^^^^^
+KeyError: 'k1'
+>>>
+>>> # dictname.get(inputKey) ->Value /None
+>>>
+>>> d.get('K1')
+'/etc/f1'
+>>> d.get('k1')
+>>>
+>>> d['K6'] = 'V1'
+>>> d.setdefault('K7','V7')
+'V7'
+>>> d
+{'K1': '/etc/f1', 'K2': 1.45, 'K4': True, 'K5': '/var/log/repo.log', 'K6': 'V1', 'K7': 'V7'}
+>>>
+>>> d.keys()
+dict_keys(['K1', 'K2', 'K4', 'K5', 'K6', 'K7'])
+>>>
+>>> d.values()
+dict_values(['/etc/f1', 1.45, True, '/var/log/repo.log', 'V1', 'V7'])
+>>>
+=================================================================================================
+networkhosts
+==============
+host01.example.com	10.20.30.40	host01
+-------------------   ==============    --------
+FQDN			    IP		 alias 
+
+ping host01.example.com
+<or>
+ping 10.20.30.40
+<or>
+ping host01
+
+>>> file_info = [
+...     'emp.csv:123:2KB:userA',
+...     'r1.log:321:4KB:userB',
+...     't1.java:435:3KB:userC',
+...     'r2.log:345:5KB:userD'
+... ]
+>>>
+>>> file_info[0]
+'emp.csv:123:2KB:userA'
+>>>
+>>> # {'fname':'emp.csv','findex':123,'size':'2KB','author':'userA'}
+>>> # ---------------------------------------------------------------// Expected structu\re
+>>> file_info[0].split(":")
+['emp.csv', '123', '2KB', 'userA']
+>>>
+>>> f,index,s,u = file_info[0].split(":")
+>>>
+>>> d={}
+>>> d['fname'] = f
+>>> d['findex'] = index
+>>> d['size'] = s
+>>> d['author'] = u
+>>> d
+{'fname': 'emp.csv', 'findex': '123', 'size': '2KB', 'author': 'userA'}
+>>>
+==========================================================================================================
+
+list of list	--> [ [],[],[] ] <== index by index  
+
+list of tuple   --> [ (),(),() ] <== index by index  - nested data - tuple - immutable 
+
+list of dict  ====> [ {}, {},{} ] <=== index 
+		      ---
+			|______nested data is dict - key based accessed 
+
+L = [ {'fname':'emp.csv','fsize':'2KB'}, {'fname':'r1.log','fsize':'4KB'},{'fname':'app.py','fsize':'3KB'} ]
+   -- ================================ | ================================| ===============================
+		0					1				2
+
+L[0] ->{'fname':'emp.csv','fsize':'2KB'} 
+	 -----
+L[0]['fname'] => 'emp.csv'
+ ---=========
+
+print(L[0]['fname'])
+print(L[1]['fname'])
+print(L[2]['fname'])
+	  ============
+L.append({'fname':'index.html','fsize':'4KB'})
+         =====================================
+print(L)
+[ {'fname':'emp.csv','fsize':'2KB'}, {'fname':'r1.log','fsize':'4KB'},
+  {'fname':'app.py','fsize':'3KB'},{'fname':'index.html','fsize':'4KB'} ]
+#------------------------------------------------------------------------------------------
+
+
+
+tuple of list
+tuple of tuple 
+tuple of dict
+
+DB1 = ({"class":"oracledb","port":3301},{"class":"mysql","port":3306})  # tuple of dict
+
+Vs
+
+DB3 = [{"class":"oracledb","port":3301},{"class":"mysql","port":3306}]  # list of dict
+
+usecases:
+1. add new database (ex: influxDB)
+
+  DB3.append({'class':'influxDB','port':8086})
+
+
+2. modify an oracledb ->cx_oracle
+
+   DB1[0]['class'] = "cx_oracle"
+  
+   DB3[0]['class'] = "cx_oracle"
+#-------------------------------------------------------------------------------------
+
+dict of list
+dict of tuple
+dict of dict
+====    -------
+
+emp = {'eid':123,'ename':'Mr.Ab','edept':'sales'}  <== 1D
+
+Vs
+dict of list
+---------------
+emp = {'eid':[123,212,444],'ename':['Mr.Ab','Ms.Ba','Mr.Ca'],'edept':['sales','admin','HR']} # <== MD 
+     
+Vs
+dict of tuple
+emp = {'eid':(123,212,444),'ename':('Mr.Ab','Ms.Ba','Mr.Ca'),'edept':('sales','admin','HR')} # <== MD 
+
+Vs 
+dict of dict
+
+d1={'K1':'V1','K2':'V2'}
+
+d2={'K1':10,'K2':20}
+
+d={'K1':d1,'K2':d2}
+
+-------------
+dict of list
+list of dict
+list of list
+dict of dict
+===============// JSON  object ; array
+----------------------------------------------------------------------------------
+
+
+str - collection of chars - index based - ''    - immutable
+bytes - collection of ASCII - index based - b'' - immutable
+list -  collection of items - index based - []  - mutable  <==== 
+tuple -  collection of items - index based - () - immutable
+dict - collection of items - key:value // based - {} - mutable <===
+Vs
+
+set - Collection of items - NOT index based 
+			    NOT key:value 
+      -------------------
+	|->unique items - not allows duplicate item
+
+set is iterable 
+set supports membership 
+len(set) ->count
+#---------------------------------------------------------------------------------------------
+
