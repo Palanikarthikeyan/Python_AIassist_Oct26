@@ -1,0 +1,687 @@
+Keyboard ---------<--- input()-------------- |  Python |---------->---print()--------- Monitor (STDOUT)
+<STDIN>   				     +---------+
+						 | read/write
+						 |
+	 				       Storage(File)
+
+ +-----------------------------+
+ | User Layer: Application 
+ +------------|-----------------+
+ | OS      
+ +-----------------------------+
+ | H/W: CPU RAM HD IO NIC <-- real resource
+ +-----------------------------+
+
+1. Read data from <FILE> ---> Python ----> Display to Monitor  ( Not using Keyboard input )
+|
+2. Python ---> Create new File then write data to FILE   (Not using Monitor - display)
+|
+3. Read data from <FILE1> ---> Python --> Create new File then write data to FILE2 (Not using IO devices)
+
+
+1. Read data from <FILE> ---> Python ----> Display to Monitor  ( Not using Keyboard input )
+
+1st step => Open an existing File       file_object = open(FileName,mode)
+|
+2nd step => read a content		file_object.read() -> str / file_object.readlines() ->list
+|
+3rd step => close an open file          file_object.close()
+
+
+
+>>> open('emp.csv','r')
+<_io.TextIOWrapper name='emp.csv' mode='r' encoding='cp1252'>
+>>>
+>>> open('C:\\users\\karth\\emp.csv','r')
+<_io.TextIOWrapper name='C:\\users\\karth\\emp.csv' mode='r' encoding='cp1252'>
+>>>
+>>> fobj = open('C:\\users\\karth\\emp.csv','r')
+>>> fobj.read()
+'eid,ename,edept,ecity,ecost\n101,raj,sales,pune,1000\n102,leo,prod,bglore,2301\n230,raj,prod,pune,2300\n450,shan,sales,bglore,3401\n542,anu,HR,mumbai,4590\n321,bibu,sales,hyd,5419\n651,ram,hr,bglore,3130\n541,leo,admin,chennai,4913\n652,karthik,prod,bglore,3490\n742,anu,sales,mumbai,5901\n821,shan,prod,hyd,6000\n151,ram,prod,bglore,3000\n241,vijay,admin,chennai,3450\n252,anish,Hr,mumbai,5490\n455,divya,sales,pune,5910'
+>>> fobj.read()
+''
+>>> fobj = open('C:\\users\\karth\\emp.csv','r')
+>>> s = fobj.read()
+>>> fobj.close()
+>>> type(s)
+<class 'str'>
+>>> len(s)
+406
+>>>
+>>> fobj = open('emp.csv','r')
+>>> fobj.readlines()
+['eid,ename,edept,ecity,ecost\n', '101,raj,sales,pune,1000\n', '102,leo,prod,bglore,2301\n', '230,raj,prod,pune,2300\n', '450,shan,sales,bglore,3401\n', '542,anu,HR,mumbai,4590\n', '321,bibu,sales,hyd,5419\n', '651,ram,hr,bglore,3130\n', '541,leo,admin,chennai,4913\n', '652,karthik,prod,bglore,3490\n', '742,anu,sales,mumbai,5901\n', '821,shan,prod,hyd,6000\n', '151,ram,prod,bglore,3000\n', '241,vijay,admin,chennai,3450\n', '252,anish,Hr,mumbai,5490\n', '455,divya,sales,pune,5910']
+>>>
+-------------------------
+2. Python ---> Create new File then write data to FILE   (Not using Monitor - display)
+
+>>> open('r1.log','w')
+<_io.TextIOWrapper name='r1.log' mode='w' encoding='cp1252'>
+>>>
+>>> open('r1.log','w')
+<_io.TextIOWrapper name='r1.log' mode='w' encoding='cp1252'>
+>>>
+>>> wobj = open('r1.log','w')
+>>>
+>>> # wobj.write('Single String\n')
+>>> #             ----------------
+>>>
+>>> wobj.write("data1\n")
+6
+>>> wobj.write(str(12132.31)+"Rs\n")
+11
+>>> emp_name = 'Raj'
+>>> emp_dept = 'sales'
+>>>
+>>> wobj.write(f'Emp name is:{emp_name}\n')
+16
+>>> wobj.write(f'{emp_name} working dept is:{emp_dept\}\n')
+26
+>>> wobj.write("D1","D2")
+Traceback (most recent call last):
+  File "<python-input-17>", line 1, in <module>
+    wobj.write("D1","D2")
+    ~~~~~~~~~~^^^^^^^^^^^
+TypeError: TextIOWrapper.write() takes exactly one argument (2 given)
+>>> wobj.write(134)
+Traceback (most recent call last):
+  File "<python-input-18>", line 1, in <module>
+    wobj.write(134)
+    ~~~~~~~~~~^^^^^
+TypeError: write() argument must be str, not int
+>>>
+>>> wobj.close()
+>>>
+
+
+
+3. Read data from <FILE1> ---> Python --> Create new File then write data to FILE2 (Not using IO devices)
+----------------------------------------------------------------------------------------------------------
+
+fobj = open('inputFile','r')
+
+wobj = open('resultFile','w')
+
+s = fobj.read()
+
+wobj.write(s)
+
+fobj.close()
+wobj.close()
+--------------------------
+>>> def f1(a1,a2,a3):
+...     print("a1=",a1,"a2=",a2,"a3=",a3)
+...
+>>>
+>>> f1(10,20,30)
+a1= 10 a2= 20 a3= 30
+>>>
+>>> f1(10.34,'data',True)
+a1= 10.34 a2= data a3= True
+>>>
+>>> f1()
+Traceback (most recent call last):
+  File "<python-input-7>", line 1, in <module>
+    f1()
+    ~~^^
+TypeError: f1() missing 3 required positional arguments: 'a1', 'a2', and 'a3'
+>>> f1(10)
+Traceback (most recent call last):
+  File "<python-input-8>", line 1, in <module>
+    f1(10)
+    ~~^^^^
+TypeError: f1() missing 2 required positional arguments: 'a2' and 'a3'
+>>> f1(10,20)
+Traceback (most recent call last):
+  File "<python-input-9>", line 1, in <module>
+    f1(10,20)
+    ~~^^^^^^^
+TypeError: f1() missing 1 required positional argument: 'a3'
+>>>
+>>> L = []
+>>> L.append()
+Traceback (most recent call last):
+  File "<python-input-12>", line 1, in <module>
+    L.append()
+    ~~~~~~~~^^
+TypeError: list.append() takes exactly one argument (0 given)
+>>> L.append(10,20)
+Traceback (most recent call last):
+  File "<python-input-13>", line 1, in <module>
+    L.append(10,20)
+    ~~~~~~~~^^^^^^^
+TypeError: list.append() takes exactly one argument (2 given)
+>>>
+>>> L.append(10)
+>>>
+>>> # def append(arg):
+>>>
+>>>
+>>> def f1(a1,a2):
+...     print(a1,a2)
+...
+>>> f1()
+Traceback (most recent call last):
+  File "<python-input-21>", line 1, in <module>
+    f1()
+    ~~^^
+TypeError: f1() missing 2 required positional arguments: 'a1' and 'a2'
+>>> f1(10)
+Traceback (most recent call last):
+  File "<python-input-22>", line 1, in <module>
+    f1(10)
+    ~~^^^^
+TypeError: f1() missing 1 required positional argument: 'a2'
+>>> f1(10,20)
+10 20
+>>> def f2(a1=True,a2=0): # default args
+...     print("a1=",a1,"a2=",a2)
+...
+>>> f2()
+a1= True a2= 0
+>>> f2(10)
+a1= 10 a2= 0
+>>> f2(100,200)
+a1= 100 a2= 200
+>>>
+>>> f2('A','B','C')
+Traceback (most recent call last):
+  File "<python-input-29>", line 1, in <module>
+    f2('A','B','C')
+    ~~^^^^^^^^^^^^^
+TypeError: f2() takes from 0 to 2 positional arguments but 3 were given
+>>>
+>>> def f1(login,password,db='mysql',port=3306):
+...     print('Connection established')
+...
+>>>
+>>> f1()
+Traceback (most recent call last):
+  File "<python-input-33>", line 1, in <module>
+    f1()
+    ~~^^
+TypeError: f1() missing 2 required positional arguments: 'login' and 'password'
+>>> f1('userA')
+Traceback (most recent call last):
+  File "<python-input-34>", line 1, in <module>
+    f1('userA')
+    ~~^^^^^^^^^
+TypeError: f1() missing 1 required positional argument: 'password'
+>>> f1('userA','aaa')
+Connection established
+>>>
+>>>
+>>> def f1(a1,a2,a3,a4=True,a5):
+  File "<python-input-38>", line 1
+    def f1(a1,a2,a3,a4=True,a5):
+                            ^^
+SyntaxError: parameter without a default follows parameter with a default
+>>>
+>>> L=[10,20,30,40,50,60,70]
+>>> L.pop()
+70
+>>> L.pop(2)
+30
+>>> # def pop(index=-1):
+>>>
+>>>
+>>> L.pop(3,4)
+Traceback (most recent call last):
+  File "<python-input-46>", line 1, in <module>
+    L.pop(3,4)
+    ~~~~~^^^^^
+TypeError: pop expected at most 1 argument, got 2
+>>>
+>>>
+>>>
+>>> def f1(*a):
+...     print(a)
+...
+>>>
+>>> f1()
+()
+>>> f1(10,20,30.44,True,'data')
+(10, 20, 30.44, True, 'data')
+>>>
+>>> L=['csh','bash','ash','tcsh','zsh','ksh']
+>>>
+>>> L.sort()
+>>> L
+['ash', 'bash', 'csh', 'ksh', 'tcsh', 'zsh']
+>>>
+>>>
+>>> L=['csh','bash','ash','tcsh','zsh','ksh']
+>>> L.sort(reverse=True)
+>>> L
+['zsh', 'tcsh', 'ksh', 'csh', 'bash', 'ash']
+>>>
+>>> f1(reverse=True)
+Traceback (most recent call last):
+  File "<python-input-65>", line 1, in <module>
+    f1(reverse=True)
+    ~~^^^^^^^^^^^^^^
+TypeError: f1() got an unexpected keyword argument 'reverse'
+>>>
+>>>
+>>> def f1(**a):
+...     print(a)
+...
+>>>
+>>> f1()
+{}
+>>> f1(reverse=False,port=4040,service='xserver')
+{'reverse': False, 'port': 4040, 'service': 'xserver'}
+>>>
+>>> import re
+>>> help(re.search)
+Help on function search in module re:
+
+search(pattern, string, flags=0)
+    Scan through string looking for a match to the pattern, returning
+    a Match object, or None if no match was found.
+
+>>>
+>>> help(re.sub)
+Help on function sub in module re:
+
+sub(pattern, repl, string, count=0, flags=0)
+---------------------------------------------------------------------------------
+
+ctrl + I 
+
+write a python program factorial of n number 
+
+write a python program to calculate factorial of n number
+  
+
+     +------------+	 		+-----------+
+     | User       | -------(A)---------->  |   LLM     |
+     +------------+			+-----------+
+		    <------(B)-----------
+
+
+(A) -> user prompt (user query)
+
+prompt - instruction to LLM
+
+(B) --> LLM response 
+
+--------------------------------------
+# Role + Context + task 
+
+act as a python developer , i am very beginner in python write a code factorial of n number
+
+#----------------------------------------------------------------------------------------------
+
+>>> def f1():
+...     return print('Hello')
+...
+>>> def f2():
+...     return input('')
+...
+>>> type(f1())
+Hello
+<class 'NoneType'>
+>>>
+>>> rv = print("Hello")
+Hello
+>>> print(rv)
+None
+>>> type(None)
+<class 'NoneType'>
+>>>
+>>> rv = input('')
+
+>>> rv
+''
+>>> type(rv)
+<class 'str'>
+>>> f2()
+
+''
+>>>
+########################################################################################################
+
+# modify the pin example code
+|
+1. Create a pin_history.log file in append mode
+2. update - user input pin details to pin_history.log file
+		      --------------
+			|->Valid pin and count - at what time/date user entered 
+			|->Invalid pin - enter invalid pin number + date/time 
+3. if pin is blocked - update blocked status to log file
+>>> import time
+>>>
+>>> time.ctime()
+'Thu Oct 15 14:04:28 2026'
+>>>                                                                              
+
+-------------------------------------------------------------------------
+|->new python file:
+  - create a function name called pin_test 
+				  =========
+------------------------------------------------------------------------------------
+
+network.cfg
+-----------------
+Type=Ethernet
+Interface=eth0
+bootproto=dhcp
+onboot=no
+domain=example.com
+DNS1=122.33.44.555
+---------------------- // this is dynamic network configuration parameters
+
+Task:
+---------
+Convert ->dynamic to static configuration
+
+step 1:	  create an empty dict
+|
+step 2:   read a network.cfg file
+	  2.1 - read a file content - line by line
+	  2.2 - split each line into multiple values based on =
+	  2.3 - add splitted content to dict (ex: 'Interface=eth0'.split("=") ->['Interface','eth0'] 
+										   Key         Value
+							{'Interface':'eth0'}
+step 3:  display - dict details
+|
+step 4:  dict operation(actual task)
+	 ==============
+	  modify dhcp ->static
+	  modify Interface ->eth1
+	  modify onboot ->yes
+	  add    IPADDR ->192.168.1.10
+	  add    PREFIX -> 24
+	  add    DNS2  -> 122.444.322.111
+|
+step 5:  display - updated dict details
+|
+step 6:  Create a new Config file - write updated dict contents to newConfig file
+===========================================================================================
+
+Module
+-------
+python module -> existing python file 
+
+import time   -> time.py
+time.ctime()
+ 
+import pprint -> pprint.py
+pprint.pprint()
+
+code reusability 
+runnable/loadable 
+running 
+
+file: E:\> ab.py				file: E:\> p1.py                E:
+----------------				------------------               |__Demo\>
+app = 'flask'					 import ab                            |__file: p2.py
+port = 5000					 print(ab.app)                           import ab
+def display():					 if(ab.port == 5000):                    print(ab.app)
+	return "<h1>Welcome</h1>"		     print(ab.display())         -----------------------
+-----------------------------------		--------------------------       E:\Demo\> python p2.py
+E:\>python ab.py {Enter}			E:\>python p1.py                 ab ModuleNotFound
+<nothing to display>				flask
+E:\>						<h1>Welcome</h1>                      file:p2.py
+						E:\>                             import sys
+                                                                                 sys.path.append("E:\\")
+                                                                                 import ab   # OK
+                                                                                 print(ab.app) # flask
+
+PYTHONPATH
+-----------------------------------------------------------------------------------------------------------
+Functional style programming
+------------------------------
+ |-> Expression style code - Higher order => function1(another_function)
+			    --------------------------------------------
+ |-> Data computation - ML,DE,DA 
+
+ |-> lambda 
+ |-> list comprehension
+ |-> generator
+--------------------
+ |       |
+map()   filter()
+
+
+lambda - unnamed function
+-------
+ |->python keyword
+ |->functioncall with args and return some value
+    
+ def NamedFunction(arg):
+	return <Value>
+
+ |-> lambda <list of args>:<basicOperation>
+
+def f1(a):
+    return a+100
+
+def f2(a1,a2):
+    return a1+a2
+
+def f3(a):
+    return a.upper()
+
+def f4(a1):
+    return a1 > 100
+
+def f5(a):
+   if(a >100 and a<200):
+	return a + 100
+   else:
+	return a + 500
+----------------------------//this is not lambda 
+
+>>> def f1(a1):
+...     return a1 + 100
+...
+>>> f1(10)
+110
+>>> lambda a1:a1+100
+<function <lambda> at 0x0000015BFAD0A770>
+>>>
+>>> f2=lambda a1:a1+100
+>>> f2(10)
+110
+>>>
+>>> F2 = lambda a1,a2:a1+a2
+>>> F2(10,20)
+30
+>>> f3 = lambda a:a.upper()
+>>> f3('hello')
+'HELLO'
+>>>
+>>> f4 = lambda a1:a1 >100
+>>> f4(150)
+True
+>>> f4(50)
+False
+>>>
+>>>
+>>> def f5(a):
+...     if(a >100 and a<200):
+...         return a + 100
+...     else:
+...         return a + 500
+...
+>>> f5(150)
+250
+>>> f5(300)
+800
+>>> Fx = lambda a:f5(a)
+>>> Fx(150)
+250
+>>> Fx(300)
+800
+>>>
+
+#########################################################################
+
+list comprehension - list append operation
+
+Syntax:
+----------
+[finalValue for iterable]
+             ----(1)---
+ ---(2)-----
+
+
+>>> L = []
+>>> for var in [10,20,30,40,50]:
+...     r = var + 100
+...     L.append(r)
+...
+>>> L
+[110, 120, 130, 140, 150]
+>>>
+>>>
+>>> [var+100 for var in [10,20,30,40,50]]
+[110, 120, 130, 140, 150]
+>>>
+>>> L=[]
+>>> for var in [10,20,30,40,50]:
+...     if(var > 30):
+...         r = var+100
+...         L.append(r)
+...     else:
+...         r = var+500
+...         L.append(r)
+...
+>>> L
+[510, 520, 530, 140, 150]
+>>>
+>>>
+>>> [var+100 if var>30 else var+500 for var in [10,20,30,40,50]]
+[510, 520, 530, 140, 150]
+>>>
+
+-------------------------------------
+generator
+---------
+ |->python function - returns an iterator (address)
+	  --------------------------------
+		yield <== python keyword
+def f1():
+   return 10 //this is not a generator 
+
+
+1. next(generator_obj) ->value...StopIteration
+	<or>
+
+2. use for loop =>  for variable in generator_obj:
+			..
+
+	<or>
+3. type cast to list => list(generator_obj)
+
+
+>>> def f1():
+...     return 10
+...
+>>> def f2():
+...     yield 10
+...
+>>> type(f1)
+<class 'function'>
+>>>
+>>> type(f2)
+<class 'function'>
+>>>
+>>> type(f1())
+<class 'int'>
+>>>
+>>> type(f2())
+<class 'generator'>
+>>> f2()
+<generator object f2 at 0x0000015BFACB4C40>
+>>> def f2():
+...     yield 10
+...     yield 20
+...     yield 30,40
+...     yield "D1","D2"
+...
+>>> gen_obj = f2()
+>>>
+>>>
+>>> next(gen_obj)
+10
+>>> next(gen_obj)
+20
+>>> next(gen_obj)
+(30, 40)
+>>> next(gen_obj)
+('D1', 'D2')
+>>> next(gen_obj)
+Traceback (most recent call last):
+  File "<python-input-54>", line 1, in <module>
+    next(gen_obj)
+    ~~~~^^^^^^^^^
+StopIteration
+>>>
+>>>
+>>> gen_obj = f2()
+>>>
+>>> for v in gen_obj:
+...     print(v)
+...
+10
+20
+(30, 40)
+('D1', 'D2')
+>>>
+>>>
+>>> gen_obj = f2()
+>>>
+>>> list(gen_obj)
+[10, 20, (30, 40), ('D1', 'D2')]
+>>>
+---------------------------------------------------------
+map() => map(function,collection) ->generator
+		|	|	  ----------------
+	    lambda			
+
+
+>>> L = []
+>>> def f1(a):
+...     return a+100
+...
+>>> for var in [10,20,30,40,50]:
+...     r = f1(var)
+...     L.append(r)
+...
+>>> L
+[110, 120, 130, 140, 150]
+>>>
+>>> list(map(lambda a:a+100,[10,20,30,40,50]))
+[110, 120, 130, 140, 150]
+>>>
+>>> obj = map(lambda a:a+100,[10,20,30,40,50])
+>>> for v in obj:
+...     print(v)
+...
+110
+120
+130
+140
+150
+>>> obj = map(lambda a:a+100,[10,20,30,40,50])
+>>> next(obj)
+110
+>>> next(obj)
+120
+>>> next(obj)
+130
+>>> next(obj)
+140
+>>> next(obj)
+150
+>>> next(obj)
+Traceback (most recent call last):
+  File "<python-input-25>", line 1, in <module>
+    next(obj)
+    ~~~~^^^^^
+StopIteration
+>>>
+#################################################################################################
