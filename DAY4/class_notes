@@ -1,0 +1,550 @@
+>>> L = [10,20,30,40,50]
+>>>
+>>> t=0
+>>> for v in L:
+...     t = t + v
+...
+>>> t
+150
+>>> import functools
+>>> functools.reduce(lambda a,b:a+b,L)
+150
+>>> import os
+>>> os.getcwd()
+'C:\\Users\\karth'
+>>> getcwd()
+Traceback (most recent call last):
+  File "<python-input-9>", line 1, in <module>
+    getcwd()
+    ^^^^^^
+NameError: name 'getcwd' is not defined
+>>> from os import getcwd
+>>> getcwd()
+'C:\\Users\\karth'
+>>>
+>>> from functools import reduce
+>>> reduce(lambda a,b:a+b,L)
+150
+>>>
+
+#################
+>>> L = [10,20,30,40,50]
+>>>
+>>> t=0
+>>> for v in L:
+...     t = t + v
+...
+>>> t
+150
+>>> import functools
+>>> functools.reduce(lambda a,b:a+b,L)
+150
+>>> import os
+>>> os.getcwd()
+'C:\\Users\\karth'
+>>> getcwd()
+Traceback (most recent call last):
+  File "<python-input-9>", line 1, in <module>
+    getcwd()
+    ^^^^^^
+NameError: name 'getcwd' is not defined
+>>> from os import getcwd
+>>> getcwd()
+'C:\\Users\\karth'
+>>>
+>>> from functools import reduce
+>>> reduce(lambda a,b:a+b,L)
+150
+>>>
+################################
+>>> def f1(a):
+...     if(a > 30):
+...         return a+100
+...     else:
+...         return a+500
+...
+>>> f1(45)
+145
+>>> f1(10)
+510
+>>> Fx = lambda a:f1(a)
+>>>
+>>> Fx(45)
+145
+>>> Fx(10)
+510
+>>> list(map(lambda a:f1(a),[15,25,35,10,55])) #####
+[515, 525, 135, 510, 155]
+>>>
+#######################################################################
+import <moduleName>
+
+<moduleName>.member
+
+file: template_code.py				file: p1.py
+-----------------------------		------------------------
+def f1():				import template_code
+   return 200				template_code.f1()
+						Vs
+def f2():				import template_code as tc 
+   return True				tc.f1() 
+-----------------------------		--------------------------
+
+Dir1/					import Dir1.Dir2.Dir3.demo
+   Dir2/				Dir1.Dir2.Dir3.demo.display()		
+      Dir3/					Vs
+	|__demo.py			import Dir1.Dir2.Dir3.demo as mydemo
+	     -> def display():		mydemo.display() # OK
+			..
+#######################################################################
+
+projectA/
+	demo1.py demo2.py demo3.py ... demo10.py
+	Sub1/
+	   |___ demo11.py demo12.py
+	Sub2/
+	   |___demo13.py
+	        |____Sub3/
+			|___demo14.py demo15.py
+	...
+	demo50.py
+----------------------------------------------------
+	To run this projectA - import all the 50 modules
+
+Commandline steps
+------------------
+step 1 : 1st Create a project directory 
+step 2 : Keep all the python files inside the project directory
+|
+step 3:  Create package initialization file __init__.py
+|
+step 4:  Copy all the external symbols to __init__.py
+	 from <module> import <member>
+|
+step 5: test your package/projectDirectory  (ex: import projectA)
+-----------------------------------------------------------------------------
+Object oriented programming
+|
+class
+object
+methods
+inheritance 
+---------------------------------------------------------------------------------------
+
+class - type
+      - python user defined class - mutable 
+      - using class name - we can access class attributes /modify/delete 
+
+class <className>:
+   '''class docs'''
+   ....// class attributes
+
+className.<attribute>
+className.<attribute> = update_new_value
+className.<attribute> = initialize_new_value
+del(className.<attribute>) 
+>>> class app:
+...     app_name = "demoApp"
+...     app_port = 1000
+...
+>>> app.app_name
+'demoApp'
+>>> app.app_port
+1000
+>>>
+>>> app.App_port
+Traceback (most recent call last):
+  File "<python-input-5>", line 1, in <module>
+    app.App_port
+AttributeError: type object 'app' has no attribute 'App_port'. Did you mean: 'app_port'?
+>>> app.app_port = 3000
+>>> app.app_port
+3000
+>>> app.app_config = "app.cfg"
+>>> app.app_config
+'app.cfg'
+>>>
+
+In python any attribute name starts with __<attribute>__ // pre-defined attributes
+
+__doc__  - document about module/class/function
+__name__ - module name
+
+####################################
+file: ab.py					file: p1.py
+---------------					=============
+var = 120					import ab
+fname = "p1.log"				var = 500
+						print(ab.var)
+def fx():					total = var + ab.var
+   return 10					print(total)  ; fx() ->NameError
+def fy():					======================
+   return 20
+=============================				|
+						   __main__.var | 500
+SymbolTable - dict Table ->Key:Value		 -----------------------
+						     ab.var     | 120
+__main__.var   | 120				--------------------------
+---------------|------				   __main__.total | 620
+__main__.fname | p1.log				-----------------------------
+---------------|---------
+__main__.fx    | 0x123
+---------------|---------
+__main__.fy    | 0x333
+-------------------------
+
+>>> class app:
+...     app_name = "demoApp"
+...     app_port = 3000
+...
+>>> dir(app)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__firstlineno__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__static_attributes__', '__str__', '__subclasshook__', '__weakref__', 'app_name', 'app_port']
+>>>
+>>> app.__dict__
+mappingproxy({'__module__': '__main__', '__firstlineno__': 1, 'app_name': 'demoApp', 'app_port': 3000, '__static_attributes__': (), '__dict__': <attribute '__dict__' of 'app' objects>, '__weakref__': <attribute '__weakref__' of 'app' objects>, '__doc__': None})
+>>>
+>>>
+>>>
+>>> for var in app.__dict__:
+...     print(f'{var} - {app.__dict__.get(var)}')
+...
+__module__ - __main__
+__firstlineno__ - 1
+app_name - demoApp
+app_port - 3000
+__static_attributes__ - ()
+__dict__ - <attribute '__dict__' of 'app' objects>
+__weakref__ - <attribute '__weakref__' of 'app' objects>
+__doc__ - None
+>>>
+>>> app.app_name
+'demoApp'
+>>> app.app_port
+3000
+>>>
+######################################################################################
+object - real entity 
+       - own state 
+
+	+-------------------------------+
+	|  				|
+	|  [   ]      |  |       [    ] | <== blueprint sheet  - class
+	|		 (white)        |
+	+-------------------------------+
+
+ 
++------------------------+
+|  [   ]     |  |  [   ] |
++------------------------+
+ - real building-1 - 1st block
+
++------------------------+
+|  [   ]     |  |  [   ] |
++------------------------+
+ - real building-2 - 2nd block
+
+className() // 
+
+
+>>> class app:
+...     app_name = 'demoApp'
+...
+>>> app
+<class '__main__.app'>
+>>>
+>>> app()
+<__main__.app object at 0x00000239CA86EF90>
+>>>
+>>> app()
+<__main__.app object at 0x00000239CC217250>
+>>>
+>>> obj1 = app()
+>>> obj2 = app()
+>>>
+>>> obj1.app_name
+'demoApp'
+>>> obj2.app_name
+'demoApp'
+>>> app.app_name = 'testApp'
+>>> obj1.app_name
+'testApp'
+>>> obj2.app_name
+'testApp'
+>>> obj1.app_name = 'flask-App' # object based initialization
+>>> obj1.app_name
+'flask-App'
+>>> obj2.app_name
+'testApp'
+>>> app.app_name = 'sampleApp' # using className
+>>> obj1.app_name
+'flask-App'
+>>> obj2.app_name
+'sampleApp'
+>>> obj2.app_name = 'FastAPI-App' # object based initialization
+>>>
+>>> obj1.app_name
+'flask-App'
+>>> obj2.app_name
+'FastAPI-App'
+>>>
+>>> app.app_name = 'xyz-app'
+>>>
+>>> obj1.app_name
+'flask-App'
+>>> obj2.app_name
+'FastAPI-App'
+>>>
+>>> obj3 = app()
+>>> obj3.app_name
+'xyz-app'
+>>>
+########################################################################
+
+>>> class cname:
+...     var = 100
+...     def f1(self):
+...         print("self=",self)
+...         self.var = 200
+...
+>>> obj = cname()
+>>> obj.var
+100
+>>> obj.f1() # f1(obj)
+self= <__main__.cname object at 0x00000239CA86EF90>
+>>> obj
+<__main__.cname object at 0x00000239CA86EF90>
+>>> obj.var
+200
+>>>
+########################################################################
+class Enrollment:
+    ename = ''
+    edob = ''
+    edept = ''
+    def initialize(self,en,eb,ed):
+        self.ename = en
+        self.edob = eb
+        self.edept = ed
+        print(f'Emp {self.ename} enrollment is done')
+    def display(self):
+        print(f'Emp name:{self.ename} DOB:{self.edob} Working dept is:{self.edept}')
+        
+eobj1 = Enrollment()
+eobj1.initialize('arun','1st Jan','sales')
+eobj2 = Enrollment()
+eobj2.initialize('theeb','2nd Feb','HR')
+### 
+# display emp details
+eobj1.display()
+eobj2.display()
+########################################################################
+
+eobj3 = Enrollment()
+eobj3.display() # ValidCall - OOPs View 
+----- ---------  ----------   
+
+class DBI:
+    def connect(self,....):
+	'''db connection establishment'''
+
+    def method1(self,..):
+	'''Query1'''
+
+    def method2(self):
+	'''Query2'''
+
+obj = DBI()
+obj.method1() // OOPs - validCall Vs DB ->DBError
+				
+########################################################################
+
+__init__() <== method
+
+
+>>> class Cname:
+...     def method1(self):
+...         print("I am non-constructor")
+...
+>>> obj = Cname()
+>>> Cname()
+<__main__.Cname object at 0x00000239CC217110>
+>>>
+>>> obj = Cname()
+>>> obj.method1()
+I am non-constructor
+>>>
+>>> class Cname:
+...     def __init__(self):
+...         print("I am act as constructor")
+...
+>>> Cname()
+I am act as constructor
+<__main__.Cname object at 0x00000239CA86EF90>
+>>>
+>>>
+>>> class Cname:
+...     def __init__(self,a1,a2,a3=0,*a4,**a5):
+...         print(a1,a2)
+...         print(a3,a4,a5)
+...         print("Welcome")
+...
+>>> obj = Cname(10,20)
+10 20
+0 () {}
+Welcome
+>>> obj = Cname(10,20,30)
+10 20
+30 () {}
+Welcome
+>>> obj = Cname(10,20,30,40)
+10 20
+30 (40,) {}
+Welcome
+>>> obj = Cname(10,20,30,40,50)
+10 20
+30 (40, 50) {}
+Welcome
+>>> obj = Cname(10,20,30,40,50,shell="/bin/bash")
+10 20
+30 (40, 50) {'shell': '/bin/bash'}
+Welcome
+>>>
+>>> objX = Cname()
+Traceback (most recent call last):
+  File "<python-input-114>", line 1, in <module>
+    objX = Cname()
+TypeError: Cname.__init__() missing 2 required positional arguments: 'a1' and 'a2'
+>>> objX
+Traceback (most recent call last):
+  File "<python-input-115>", line 1, in <module>
+    objX
+NameError: name 'objX' is not defined. Did you mean: 'obj1'?
+>>>
+=============================================================================
+
+>>> import demo37
+>>>
+>>> vobj1 = demo37.vendor('AMC','GST139')
+Vendor AMC enrollment is done!!
+>>>
+>>> vobj1.billing('pA',4,1000)
+>>> vobj1.billing('pB',2,4590.32)
+>>> vobj1.billing('pC',6,34)
+>>>
+>>> vobj2 = demo37.vendor('Apelix','GST9494')
+Vendor Apelix enrollment is done!!
+>>> vobj2.billing('pA',2,900)
+>>> vobj2.billing('pG',3,9874.12)
+>>>
+>>>
+>>> import demo37 as demo
+>>> obj1  = demo.vendor('Px-13','GST444')
+Vendor Px-13 enrollment is done!!
+>>> obj1.billing('Laptop',5,10000)
+>>>
+=============================================================================
+Inheritance
+--------------- 
+IS-A
+
+Parent <---> Child
+-------
+
+class Cname1:
+   pass
+
+class Cname2(Cname1): <--   Vs        def functionName(argument):  <-- function
+ |      |     ======
+	|	|___ParentClass
+	|
+     Current Class - ChildClass
+
+file:p1.py
+-----------------------------
+import ab
+class Fax(ab.Mail):
+	pass
+
+-----------------------------
+
+
+
+__init__
+
+__del__
+
+>>> i = 10
+>>> i = i + 1
+>>> del(i)
+>>> class box:
+...     def __init__(self):
+...         self.a = 10
+...         print("welcome")
+...     def __del__(self):
+...         print("Thank you")
+...         del(self.a)
+...
+>>> obj = box()
+welcome
+>>> del(obj)
+Thank you
+>>>
+>>> obj = box()
+welcome
+>>> exit()
+Thank you
+
+
+>>> i = 10 # procedure style
+>>>
+>>> int()
+0
+>>> j = int(20) # oops style
+>>> #   |
+>>> #  className(args)
+>>> #  --------- ====
+>>> j
+20
+>>> type(i)
+<class 'int'>
+>>> type(j)
+<class 'int'>
+>>> f = float(3.56)
+>>> f
+3.56
+>>> s1 = "Hello"
+>>> s2 = str("Welcome")
+>>> s2
+'Welcome'
+>>>
+>>> L1 = []
+>>> L2 = list()
+>>> L1
+[]
+>>> L2
+[]
+>>>
+############################################################################
+Exception Handling
+--------------------
+errors
+  |------->1. Syntax Error - not following python rules - python won't execute code 
+  |
+  |------->2. Logical Error - Following python rules 
+
+try
+except
+else
+finally
+-----------//python keywords 
+
+try:
+     <code monitoring>
+except <ExceptionName> as eobj:
+     <Handle the Error>
+else:
+     <There is no Error>
+finally:
+     <Always running>
+
+####################################################################################
