@@ -1,0 +1,541 @@
+1. Regular Expression
+2. Pytest
+3. Logging 
+4. Database 
+5. JSON
+6. requests - API
+7. numpy ->pandas ->matplotlib
+----------------------------------------------------------------------------
+1. Regular Expression
+-----------------------
+ - pattern matching technique 
+ - pattern = string,numbers,space,specialchars etc.,
+ |
+ -> i) Search ii) Substitute + iii) Split
+    =========================
+import re
+
+Search ->   re.search()   => re.search('pattern_string','input_string',re.I) -><obj>/None
+
+re.findall()  => re.findall('pattern_string','input_string',re.I) ->['matched results'] / []
+
+-------------------------------
+substitute -> re.sub()
+
+split -> re.split()
+
+>>> import re
+>>>
+>>> s='101,raj,sales,pune,1000'
+>>>
+>>> 'sales' in s
+True
+>>> re.search('sales',s)
+<re.Match object; span=(8, 13), match='sales'>
+>>>
+>>> bool(re.search('sales',s))
+True
+>>> re.search('QA',s)
+>>>
+>>> bool(re.search('QA',s))
+False
+>>> 'SALES' in s
+False
+>>> re.search('SALES',s,re.I)
+<re.Match object; span=(8, 13), match='sales'>
+>>>
+>>> re.search('Sales',s,re.I)
+<re.Match object; span=(8, 13), match='sales'>
+>>>
+>>> if(re.search('Sales',s,re.I)):
+...     print('Yes - Given pattern is matched')
+...     print(s)
+... else:
+...     print('Sorry pattern is not matched')
+...
+Yes - Given pattern is matched
+101,raj,sales,pune,1000
+>>>
+------------------------------------------------------
+>>> re.search('sales','raj,sales,101,sales,pune,sales,sales')
+<re.Match object; span=(4, 9), match='sales'>
+>>>
+>>> re.findall('sales','raj,sales,101,sales,pune,sales,sales')
+['sales', 'sales', 'sales', 'sales']
+>>>
+>>>
+>>> re.findall('sales','raj,sales,101,sales,pune,sales,sales',re.I)
+['sales', 'sales', 'sales', 'sales']
+>>>
+>>> re.findall('QA','raj,sales,101,sales,pune,sales,sales',re.I)
+[]
+>>> bool([])
+False
+------------------------------------------------------
+Basic Regular Expression - BRE   - Single pattern
+Extened Regular Expression - ERE - More than one pattern 
+
+BRE
+===
+^		-> ^pattern  - matches line starts with pattern 
+$		->  pattern$ - matches line ends with pattern 
+^pattern$	-> ^pattern$ - pattern only 
+.		-> match any single char, except \n
+.*		-> List of all
+
+[]   ------------->[]<-- Single Character => [Aav]run ->Arun arun vrun //OK
+				[Aa][Rr]un
+				-----------
+				 ARun  Arun aRun arun //OK
+[a-z] - match any lowercase
+[A-Z] - match any uppercase
+[a-zA-Z] - match any alpha
+[0-9] - match any digits  (or) \d 
+
+[a-zA-Z0-9] (or) \w 
+
+^[]  --------->  ^[A-Z].*[a-z]$
+[]$  -------->[a-z]$ <-- line end with any single lowercase chars
+
+[^] --->NOT  => [^abc] ==> NOT match a NOT match b  NOT match c
+
+^[a-z] 						 [^a-z] 
+-----//line starts with any lowercase Vs    ======== Not matching any lower case
+
+[^a-zA-Z0-9]
+==============//Not matching any alpha numeric 
+
+^$ -->Empty line
+---------------------
+ERE
+====
+|  ()  +   {}
+
+| ->like logical OR - any one pattern is matched -OK
+
+re.search("sales|prod","101,leo,sales,pune") ->OK
+
+re.search("sales|prod","102,anu,prod,pune") ->OK
+
+re.search("sales|prod","103,bibu,admin,hyd") ->None 
+			--------------------
+
+() -> like logical AND -> both pattern should match in same order
+(pattern1)(pattern2)
+
+re.search("(sales).(pune)","asdfsfdsf sales<CHAR>pune asdffs") ->OK
+				      ===============
+
+
+re.search("(sales).(pune)","asdfsfdsf pune<CHAR>sales asdffs") ->None
+				      ===============
+
+<pattern>+ -> 1 or more times
+-----------
+ab+c => abc abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbc //OK
+
+re.search("^\s+",input_string) 
+	  -----
+	    |->line starts with 1 or more space 
+
+{} <== IRE
+
+<pattern>{n}  - times
+
+ab{3}c
+-----------> abbbc
+
+^[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][a-z][a-z][a-z]$ <== BRE
+
+^[A-Z]{2}[0-9]{5}[a-z]{3}$ <== ERE
+
+
+<pattern>{n}  - times
+<pattern>{n,}  - minimum n times , maximum nolimit
+ab{3,}c => abbbc abbbbbbbbbbbbbbbbbbbbbbbbbbbc//OK
+
+ab+c ---same as---> ab{1,}c
+--------------------------------
+
+<pattern>{n,m}  - minimum n times , maximum m times
+
+ab{3,5}c ==> abbbc abbbbc abbbbbc //OK
+
+ 
+
+
+
+---------------------------------------
+>>> s='101,raj,sales,pune,1000'
+>>>
+>>> 'sales' in s
+True
+>>> re.search('sales',s)
+<re.Match object; span=(8, 13), match='sales'>
+>>>
+>>> bool(re.search('sales',s))
+>>> s1 = '101,raj,sales,pune'
+>>>
+>>> s2 = 'sales,raj,pune'
+>>>
+>>> s3 = 'sales,'
+>>>
+>>> re.search('^sales',s1)
+>>>
+>>> re.search('^sales',s2)
+<re.Match object; span=(0, 5), match='sales'>
+>>> re.search('^sales',s3)
+<re.Match object; span=(0, 5), match='sales'>
+>>>
+>>> re.search("^5","asdfsfsd5asdfasf")
+>>>
+>>> re.search("^5","asdfsfsd5asdfasf5")
+>>>
+>>> re.search("^5","5asdfsfsdasdfasf")
+<re.Match object; span=(0, 1), match='5'>
+>>>
+>>> re.search("^ ","python program")
+>>>
+>>> re.search("^ "," python program")
+<re.Match object; span=(0, 1), match=' '>
+>>>
+>>> re.search("^ "," pythonprogram")
+<re.Match object; span=(0, 1), match=' '>
+>>>
+
+>>> s1='raj,sales,pune'
+>>>
+>>> s2='sales,bglore'
+>>>
+>>> s3='vijay,sales'
+>>>
+>>> re.search('sales$',s1)
+>>>
+>>> re.search('sales$',s2)
+>>>
+>>> re.search('sales$',s3)
+<re.Match object; span=(6, 11), match='sales'>
+>>>
+>>>
+>>> re.search('e$',s1)
+<re.Match object; span=(13, 14), match='e'>
+>>> re.search('e$',s2)
+<re.Match object; span=(11, 12), match='e'>
+>>>
+
+>>> re.search('^python programming$','python programming')
+<re.Match object; span=(0, 18), match='python programming'>
+>>>
+>>> re.search('^python programming$','python  programming')
+>>>
+>>>
+>>> re.search('^python programming$','python  programming')
+
+>>> re.search("sales..","101,raj,sales,pune")
+<re.Match object; span=(8, 15), match='sales,p'>
+>>>
+>>> re.search("...sales..","101,raj,sales,pune")
+<re.Match object; span=(5, 15), match='aj,sales,p'>
+>>>
+>>> re.search("^python.programming$","python programming")
+<re.Match object; span=(0, 18), match='python programming'>
+>>>
+>>> re.search("^python.programming$","python,programming")
+<re.Match object; span=(0, 18), match='python,programming'>
+>>>
+>>> re.search("^python.programming$","python3programming")
+<re.Match object; span=(0, 18), match='python3programming'>
+>>>
+>>> re.search("^python.programming$","python3 programming")
+>>>
+>>> re.search("^python..programming$","python3 programming")
+<re.Match object; span=(0, 19), match='python3 programming'>
+>>>
+
+>>> s="demoA,40th101codedated on 19th Oct 2026 date time is:10:03 AM IST"
+>>>
+>>> re.findall("[0-9]",s)
+['4', '0', '1', '0', '1', '1', '9', '2', '0', '2', '6', '1', '0', '0', '3']
+>>>
+>>> re.findall("[0-9]+",s)
+['40', '101', '19', '2026', '10', '03']
+>>>
+========================================================================
+Logging
+--------
+	+----------+
+	|  app     | --- events -- (log - event record)
+	+----------+		   =====================
+
+========================================================================
+Pytest
+------
+assert 
+
+every test case file =>  test<name>.py
+			 ====
+			 |
+	every testcase function name starts with test<name> 
+
+file: calc.py
+------------------
+def f1(a1,a2):
+    return a1+a2
+--------------------
+file: testcalc.py
+-------------------
+import pytest
+from calc import f1
+
+def testf1():
+    assert f1(10,20) == 30 #PASS
+def testf2():
+    assert f1(10,20) == 20 #FAIL
+---------------------------------------//
+python -m pytest {enter}
+
+python -m pytest testcalc.py {enter} 
+
+
+
+file:test_demo.py
+-------------------
+def myf1():
+     return True
+------------------------
+python -m pytest test_demo.py 
+
+Error -> function name starts with test
+
+def myf1():
+     var = 100
+    '''this is not test case function'''
+----------------------------------------//?
+
+@pytest.fixture
+def myf1():
+    var = 100
+ 
+def test_f1():
+    ...
+
+========================================================================
+Recap
+------
+List of List/Tuple/Dict
+Dict of List/Tuple/Dict
+
+JSON
+-----
+ - store data and exchange the data - between webApplications
+   =====          ========
+
+python				JSON
+int,float <------------------> int,float
+str		<------------>  str  '' 
+list  <---------------------->  array [] - mutable
+tuple -----------------------> array [] - mutable
+dict <------------------------> object {} - mutable 
+
+import json
+
+# Convert from python ->json
+json.dumps(input_python_data) ->output_json_data
+
+# Convert from json ->python
+json.loads(input_json_data) ->output_python_data
+
+>>>> d={'url':['https://www.google.com','https://www.python.org'],'port':{'K1':[1000,\ }}
+2000]}}
+>>>
+>>>
+>>> type(d)
+<class 'dict'>
+>>>
+>>> import json
+>>>
+>>> json_obj = json.dumps(d)
+>>>
+>>> json_obj
+'{"url": ["https://www.google.com", "https://www.python.org"], "port": {"K1": [1000, 2000]}}'
+>>> type(json_obj)
+<class 'str'>
+>>>
+>>> python_data = json.loads(json_obj)
+>>> type(python_data)
+<class 'dict'>
+>>> python_data
+{'url': ['https://www.google.com', 'https://www.python.org'], 'port': {'K1': [1000, 2000]}}
+>>>
+=================================================================================
+Using logging module modify the below pin example. 
+Keep the logging parameter as loglevel access time standard severity 
+and messages 
+-------------------------------------------------------------------------
+Client----------request-->----------| Server |--->-invoke server script(programs)
+								   |
+								   |
+	----------------------------<------------------------------
+			response 
+			   |->1. Page response <html>...{{variable}}</html>
+			   |->2. Data response  JSON only 
+
+Client:
+   Empid:___ (search)
+		|
+	Emp_name,Emp_dept,EmpBloodGroup
+
+			<html>
+			<head>
+			<title>..</title>
+			<body>
+			<p>Emp name is:Mr.Arun...</p>
+			<p>Emp dept is:sales..</p>
+			...
+			</html>
+	----------------------------------// str - text/html
+Client:
+  Empid:__(search)
+	
+	['Mr.Arun','sales','A+'] (or) {'ename':'Mr.Arun','edept':'sales'..}
+	 <or>
+	{'emp1':[]}
+	------------------// there is no html + no jinja2template Code
+
+
+## To download web content(html / json) 
+
+1st -> pip show requests ->if not exists -> pip install requests 
+|
+2nd -> import requests
+|
+3rd -> requests.get(URL) ->return_Status
+				|
+			     4th Get the status code(status_code)
+
+5. return_status.headers ->dict
+			   |
+			Content-Type =>text/html <== WebPage 
+			Content-Type =>application/json <== JSON data
+------------------------------------------------------------------------
+6.1 web_page = return_Status.text 
+   <== download web content and initialize to variable
+ 
+ <or>
+
+6.2  python_data  = return_Status.json()
+     -------------
+
+
+>>> URL1="https://www.google.com"
+>>>
+>>> URL2="https://api.github.com/users/hadley/orgs"
+>>>
+>>> import requests
+>>> r = requests.get(URL1)
+>>> r.status_code
+200
+>>> r.headers
+{'Content-Type': 'text/html; charset=ISO-8859-1', 'Date': 'Mon, 19 Oct 2026 08:56:46 GMT', 'Expires': '-1', 'Cache-Control': 'private, max-age=0', 'Content-Security-Policy-Report-Only': "object-src 'none';base-uri 'self';script-src 'nonce-cXdTuRcEWyAWKcMQ5SbQnA' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp", 'Accept-CH': 'Sec-CH-Prefers-Color-Scheme', 'P3P': 'CP="This is not a P3P policy! See g.co/p3phelp for more info."', 'Content-Encoding': 'gzip', 'Server': 'gws', 'X-XSS-Protection': '0', 'X-Frame-Options': 'SAMEORIGIN', 'Set-Cookie': '__Secure-STRP=ABNhA6h5151SDeZ9FhM-9KtYcwaV5fSuJvA0 SameSite=lax, NID=CvIBCAESpAEBOxGDSJRgpihHGXShzCuqCGXGGdNmLpyEBr4whjlhan9Yoou9TLfNVphgbJGSJ8clhgqHqsBd1FF6ZcJwbjeqUzOAItTe3S88HAU-MDeGhhgpwLmO3I9Os5Eddy-2yL0OQHuVx7T0T5GJmZD4vHQixSHWT6yrapWOBNdogm9Xs_JaOVRfPxQiA_Ku6LSFBSJmSfupuTUXUlfIy0XUvtjKXp-9vygBMkUB0qwHz0sJz15rA1QEm19p1DUrLqFe2SJO-_tk8wF5p298kM5ldJyjy-s_dKOEutam-MD-NWlVGL794C3k-fdg4pf0cgU; expires=Tue, 20-Apr-2027 08:56:46 GMT; path=/; domain=.google.com; HttpOnly', 'Alt-Svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000', 'Transfer-Encoding': 'chunked'}
+>>>
+>>> web_page = r.text
+>>>
+>>> type(web_page)
+<class 'str'>
+>>> len(web_page)
+88054
+>>>
+>>> with open('test.html','w') as wobj:
+...     wobj.write(web_page)
+...
+88054
+>>>
+##################
+>>> r = requests.get(URL2)
+>>> r.status_code
+200
+>>> r.headers
+{'Date': 'Mon, 19 Oct 2026 09:00:25 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=60, s-maxage=60', 'Vary': 'Accept,Accept-Encoding, Accept, X-Requested-With', 'ETag': 'W/"61f25e2a55611f7eaf75a20ed5fe501245c5af99bc383854f5442975318fad26"', 'X-GitHub-Media-Type': 'github.v3; format=json', 'x-github-api-version-selected': '2022-11-28', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning', 'Access-Control-Allow-Origin': '*', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Frame-Options': 'deny', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'Content-Security-Policy': "default-src 'none'", 'Content-Encoding': 'gzip', 'Server': 'github.com', 'Accept-Ranges': 'bytes', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '56', 'X-RateLimit-Used': '4', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Reset': '1792401756', 'Content-Length': '1008', 'X-GitHub-Request-Id': '90C5:1A8E3C:6C540:9D234:6AD5DC29', 'x-github-edge-region': 'centralindia'}
+>>> r.headers['Content-Type']
+'application/json; charset=utf-8'
+>>>
+>>> py_data = r.json()
+>>>
+>>> type(py_data)
+<class 'list'>
+>>>
+>>> type(py_data[0])
+<class 'dict'>
+>>> py_data[0]['id']
+423638
+>>> py_data[0]['login']
+'ggobi'
+########################################################
+python			DBI ->DBD->DBE-Query	Database - SQL
+- programming				   sql> select *from tableName;
+- int,float,str,bytes			   +---------------------------+
+  list,tuple,dict			   |
+  generator,None			   +---------------------------+
+  ...					   |
+					   +---------------------------+
+'select *from tableName'				|
+-------------------------//str				|
+					<==		|
+			________________________________|
+				tuple/list of tuple/generator
+
+
+[PYthon]----<-->----[DBI]-----<-->----------[Database]
+
+1. import <DB-Module> (ex: oracledb -> import oracledb ; import sqlite3)
+|
+2. <DB-Module>.connect(connection_params) ->Connection_Object 
+|
+3. Connection_Object.cursor() ->Cursor_object
+|
+4. Cursor_object.execute(Query)
+|
+5. Connection_Object.commit()
+|
+6. Connection_Object.close()
+
+>>> def connect(arg):
+...     class Connection:
+...         def __init__(self,arg):
+...             self.arg  = arg
+...         def method1(self):
+...             return self.arg+"test Connection"
+...     obj = Connection(arg)
+...     return obj
+...
+>>> connect("data1")
+<__main__.connect.<locals>.Connection object at 0x000001D5F386F0E0>
+>>>
+>>> conn_obj = connect("data1")
+>>>
+>>> conn_obj.method1()
+'data1test Connection'
+>>>
+
+>>> import sqlite3
+>>> myconn = sqlite3.connect("test1db")
+>>> sth = myconn.cursor()
+>>> sth.execute("select *from product")
+<sqlite3.Cursor object at 0x000002EB8625D540>
+>>>
+>>> list(sth)
+[(101, 'pA', 1000), (102, 'pB', 200), (103, 'pC', 3000), (104, 'pD', 4000)]
+>>>
+>>> sth.execute("select *from product")
+<sqlite3.Cursor object at 0x000002EB8625D540>
+>>>
+>>> for v in sth:
+...     print(v)
+...
+(101, 'pA', 1000)
+(102, 'pB', 200)
+(103, 'pC', 3000)
+(104, 'pD', 4000)
+>>>
+----------------------------------------------------------------
+
